@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { TestRequestsService } from '../test-requests.service';
+import { TestClassModel } from '../Models/TestClass';
 
 @Component({
   selector: 'app-test-area',
@@ -7,7 +9,17 @@ import { Component, OnInit } from '@angular/core';
 })
 export class TestAreaComponent implements OnInit {
 
-  constructor() { }
+  myTestObject: TestClassModel;
+
+  constructor(private TestReqService:TestRequestsService) { 
+    TestReqService.getTestItem().subscribe(
+      (data: TestClassModel) => {
+        this.myTestObject = { ...data };
+
+        console.log(this.myTestObject.home)
+      });
+
+  }
 
   ngOnInit(): void {
   }
